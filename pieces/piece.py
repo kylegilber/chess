@@ -2,9 +2,7 @@ import math
 
 class Piece:
 
-    def __init__(self, assoc = None, pos = None):
-        self.association = assoc
-        self.position = pos
+    def __init__(self): pass
 
     def getCoords(self):
         a=self.position/8
