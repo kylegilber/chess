@@ -1,4 +1,4 @@
-from piece.Piece import Piece
+from piece import Piece
 
 class Null(Piece):
     
