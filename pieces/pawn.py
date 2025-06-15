@@ -11,4 +11,4 @@ class Pawn(Piece):
         self.position = pos
 
     def tostring(self):
-        return 'P' if self.alliance == "White" else "p"
+        return 'P' if self.association == "White" else "p"

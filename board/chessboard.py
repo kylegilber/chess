@@ -11,6 +11,7 @@ class Board:
 
     gamestate = [[0 for rank in range(8)] for file in range(8)]
 
+
     def setupBoard(self):
 
         order = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
@@ -23,4 +24,12 @@ class Board:
 
         for rank in range(2, 6):
             for file in range(8):
-                self.gamestate[rank][file] = Square(rank * 8 + file)
+                self.gamestate[rank][file] = Square(rank * 8 + file, Null())
+
+
+    def printBoard(self):
+
+        for rank in range(8):
+            for file in range(8):
+                print("|", self.gamestate[rank][file].piece.tostring(), end= "")
+            print("|")
