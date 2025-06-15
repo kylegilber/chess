@@ -13,6 +13,9 @@ class Board:
 
 
     def setupBoard(self):
+        """
+        Set up the initial chess board state
+        """
 
         order = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
 
@@ -26,8 +29,10 @@ class Board:
             for file in range(8):
                 self.gamestate[rank][file] = Square(rank * 8 + file, Null())
 
-
     def printBoard(self):
+        """
+        Print the current board state
+        """
 
         for rank in range(8):
             for file in range(8):
