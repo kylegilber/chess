@@ -13,18 +13,19 @@ class Bishop(Piece):
     def tostring(self):
         return 'B' if self.association == "White" else "b"
     
-    def getCoords(self):
-        x= self.position / 8
-        y= self.position % 8
-        return math.floor(x), y
+    def calcCoords(self):
+        rank = self.position / 8
+        file = self.position % 8
+        return math.floor(rank), file
 
     def legalMoves(self, gamestate):
         """
-        :param gamestate:
+        :param gamestate: board object representing the current state of the chess game
+        :returns: a list containing the coordinates of all legal moves for a Bishop object
         """
 
         moves = []
-        rank, file = self.getCoords()
+        rank, file = self.calcCoords()
 
         if (gamestate[rank][file].piece.association == "Black"):
             x, y = rank, file
