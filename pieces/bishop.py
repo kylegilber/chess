@@ -5,6 +5,7 @@ class Bishop(Piece):
 
     association = None
     position = None
+    directions = [(1,1),(-1,1),(1,-1)(-1,-1)]
 
     def __init__(self, assoc, pos):
         self.association = assoc
@@ -27,109 +28,20 @@ class Bishop(Piece):
         moves = []
         rank, file = self.calcCoords()
 
-        if (gamestate[rank][file].piece.association == "Black"):
-            x, y = rank, file
-            while True:
-                x += 1
-                y += 1
-                if (x < 8 and y < 8):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
-                        continue
-                    elif (gamestate[x][y].piece.association == "White"):
-                        moves.append([x, y])
-                        break
-                else: break
+        for dir in self.directions:
+            tempr, tempf = rank, file
 
-            x, y = rank, file
             while True:
-                x -= 1
-                y += 1
-                if (x > -1 and y < 8):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
+                tempr += dir[0]
+                tempf += dir[1]
+                if (-1 < tempr < 8 and -1 < tempf < 8):
+                    assoc = gamestate[tempr][tempf].piece.association
+                    if (assoc is None): 
+                        moves.append([tempr, tempf])
                         continue
-                    elif (gamestate[x][y].piece.assocaition == "White"):
-                        moves.append([x, y])
+                    if (assoc != self.association):
+                        moves.append([tempr, tempf])
                         break
                 else: break
-
-            x, y = rank, file
-            while True:
-                x += 1
-                y -= 1
-                if (x < 8 and y > -1):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
-                        continue
-                    elif (gamestate[x][y].piece.assocaition == "White"):
-                        moves.append([x, y])
-                        break
-                else: break
-
-            x, y = rank, file
-            while True:
-                x -= 1
-                y -= 1
-                if (x > -1 and y > -1):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
-                        continue
-                    elif (gamestate[x][y].piece.association == "White"):
-                        moves.append([x, y])
-                        break
-                else: break
-
-        else:
-            x, y = rank, file
-            while True:
-                x += 1
-                y += 1
-                if (x < 8 and y < 8):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
-                        continue
-                    elif (gamestate[x][y].piece.association == "Black"):
-                        moves.append([x, y])
-                        break
-                else: break
-
-            x, y = rank, file
-            while True:
-                x -= 1
-                y += 1
-                if (x > -1 and y < 8):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
-                        continue
-                    elif (gamestate[x][y].piece.assocaition == "Black"):
-                        moves.append([x, y])
-                        break
-                else: break
-
-            x, y = rank, file
-            while True:
-                x += 1
-                y -= 1
-                if (x < 8 and y > -1):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
-                        continue
-                    elif (gamestate[x][y].piece.assocaition == "Black"):
-                        moves.append([x, y])
-                        break
-                else: break
-
-            x, y = rank, file
-            while True:
-                x -= 1
-                y -= 1
-                if (x > -1 and y > -1):
-                    if (gamestate[x][y].piece.association is None):
-                        moves.append([x, y])
-                        continue
-                    elif (gamestate[x][y].piece.association == "Black"):
-                        moves.append([x, y])
-                        break
-                else: break
+                
         return moves
