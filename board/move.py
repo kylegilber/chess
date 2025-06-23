@@ -11,6 +11,10 @@ class Move:
 
     def enpassant(self, gamestate, rank, file):
         """
+        :param gamestate: current board state
+        :param rank: rank to check for a pawn
+        :param file: file to check for a pawn
+        :returns: list of legal en passant moves
         """
 
         moves = []
@@ -38,6 +42,4 @@ class Move:
                         moves.append([rank, file-1])
 
         return moves
-
     
-
