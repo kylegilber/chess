@@ -37,9 +37,12 @@ class Queen(Piece):
                     if (assoc is None): 
                         moves.append([tempr, tempf])
                         continue
-                    if (assoc != self.association):
+                    elif (assoc != self.association):
                         moves.append([tempr, tempf])
                         break
+                    else: break
                 else: break
+                
+        return moves
 
         
