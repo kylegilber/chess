@@ -42,4 +42,26 @@ class Move:
                         moves.append([rank, file-1])
 
         return moves
-    
+
+    def checkB(self, gamestate):
+        """
+        """
+        
+        if (gamestate[0][4].piece.tostring() == "k"): 
+            rank, file = 0, 4
+        else:
+            for x in range(8):
+                for y in range(8):
+                    if (gamestate[x][y].piece.tostring() == "k"):
+                        rank, file = x, y
+        
+        for x in range(8):
+            for y in range(8):
+                if (gamestate[x][y].piece.association == "White"):
+                    moves = gamestate[x][y].piece.legalMoves(gamestate)
+                    for move in moves:
+                        if (move[0] == rank and move[1] == file):
+                            return [x, y]
+        return []
+
+
