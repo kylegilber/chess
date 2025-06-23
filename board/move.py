@@ -138,3 +138,23 @@ class Move:
                             moves.append([7, 6])
         
         return moves
+    
+    def pinnedB(self, gamestate, legalMoves, rank, file):
+        """
+        """
+
+        temp = None
+        moves = []
+        for move in legalMoves:
+            x, y = move[0], move[1]
+            temp = gamestate[x][y].piece
+            gamestate[x][y].piece = gamestate[rank][file].piece
+            gamestate[rank][file].piece = Null()
+            
+            if (len(self.checkB) == 0):
+                moves.append(move)
+
+            gamestate[rank][file].piece = gamestate[x][y].piece
+            gamestate[x][y].piece = temp
+
+        return moves
