@@ -93,4 +93,24 @@ class Move:
                         
         return []
 
+    def castleB(self, gamestate):
+        """
+        """
 
+        moves = []
+        
+        if (gamestate[0][4].piece.tostring() == "k"):
+            if (gamestate[0][4].piece.moved == False):
+                if (gamestate[0][0].piece.tostring() == "r"):
+                    if (gamestate[0][0].piece.moved == False):
+                        if (gamestate[0][1].piece.association is None and
+                            gamestate[0][2].piece.association is None and
+                            gamestate[0][3].piece.association is None):
+                            moves.append([0, 2])
+                if (gamestate[0][7].piece.tostring() == "r"):
+                    if (gamestate[0][7].piece.moved == False):
+                        if (gamestate[0][6].piece.association is None and
+                            gamestate[0][5].piece.association is None):
+                            moves.append([0, 6])
+        
+        return moves
