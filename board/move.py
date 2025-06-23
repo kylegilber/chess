@@ -95,10 +95,12 @@ class Move:
 
     def castleB(self, gamestate):
         """
+        :param gamestate: current chess board state
+        :returns: list of legal castling moves for the black king
         """
 
         moves = []
-        
+
         if (gamestate[0][4].piece.tostring() == "k"):
             if (gamestate[0][4].piece.moved == False):
                 if (gamestate[0][0].piece.tostring() == "r"):
@@ -114,3 +116,4 @@ class Move:
                             moves.append([0, 6])
         
         return moves
+    
