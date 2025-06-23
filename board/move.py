@@ -45,8 +45,10 @@ class Move:
 
     def checkB(self, gamestate):
         """
+        :param gamestate: current board state
+        :returns: coordinates of piece checking the black king (if any)
         """
-        
+
         if (gamestate[0][4].piece.tostring() == "k"): 
             rank, file = 0, 4
         else:
