@@ -100,7 +100,6 @@ class Move:
         """
 
         moves = []
-
         if (gamestate[0][4].piece.tostring() == "k"):
             if (gamestate[0][4].piece.moved == False):
                 if (gamestate[0][0].piece.tostring() == "r"):
@@ -117,3 +116,25 @@ class Move:
         
         return moves
     
+    def castleW(self, gamestate):
+        """
+        :param gamestate: current chess board state
+        :returns: list of legal castling moves for the white king
+        """
+
+        moves = []
+        if (gamestate[7][4].piece.tostring() == "K"):
+            if (gamestate[7][4].piece.moved == False):
+                if (gamestate[7][0].piece.tostring() == "R"):
+                    if (gamestate[7][0].piece.moved == False):
+                        if (gamestate[7][1].piece.association is None and
+                            gamestate[7][2].piece.association is None and
+                            gamestate[7[3].piece.associaiton is None]):
+                            moves.append([7, 2])
+                if (gamestate[7][7].piece.tostring() == "R"):
+                    if (gamestate[7][7].piece.moved == False):
+                        if (gamestate[7][6].piece.association is None and
+                            gamestate[7][5].piece.assocaition is None):
+                            moves.append([7, 6])
+        
+        return moves
