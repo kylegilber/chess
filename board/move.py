@@ -61,9 +61,36 @@ class Move:
             for y in range(8):
                 if (gamestate[x][y].piece.association == "White"):
                     moves = gamestate[x][y].piece.legalMoves(gamestate)
+
                     for move in moves:
                         if (move[0] == rank and move[1] == file):
                             return [x, y]
+                        
+        return []
+
+    def checkW(self, gamestate):
+        """
+        :param gamestate: current board state
+        :returns: coordinates of piece checking the white king
+        """
+
+        if (gamestate[7][4].piece.tostring() == "K"):
+            rank, file = 7, 4
+        else:
+            for x in range(7, -1, -1):
+                for y in range(7, -1, -1):
+                    if (gamestate[x][y].piece.tostring() == "K"):
+                        rank, file = x, y
+                
+        for x in range(7, -1, -1):
+            for y in range(7, -1, -1):
+                if (gamestate[x][y].piece.association == "Black"):
+                    moves = gamestate[x][y].piece.legalMoves(gamestate)
+                    
+                    for move in moves:
+                        if (move[0] == rank and move[1] == file):
+                            return [x, y]
+                        
         return []
 
 
