@@ -139,27 +139,32 @@ class Move:
         
         return moves
     
-    def pinnedB(self, gamestate, legalMoves, rank, file):
+    def pinned(self, gamestate, legalMoves, rank, file, assoc):
         """
         :param gamestate: current chess board state
-        :param legalMoves: list of legal moves for a black piece
-        :param rank: x coordinate of black piece
-        :param file: y coordinate of black piece
-        :returns: list of moves that do not result in a check on the black king
+        :param legalMoves: list of a piece's moves
+        :param rank: x coordinate of piece
+        :param file: y coordinate of piece
+        :returns: list of moves that do not result in a check on the king
         """
 
-        temp = None
         moves = []
+        temp = None
         for move in legalMoves:
             x, y = move[0], move[1]
             temp = gamestate[x][y].piece
             gamestate[x][y].piece = gamestate[rank][file].piece
             gamestate[rank][file].piece = Null()
             
-            if (len(self.checkB) == 0):
-                moves.append(move)
+            if (assoc == "Black"):
+                if (len(self.checkB) == 0):
+                    moves.append(move)
+            else:
+                if (len(self.checkW) == 0):
+                    moves.append(move)
 
             gamestate[rank][file].piece = gamestate[x][y].piece
             gamestate[x][y].piece = temp
 
         return moves
+            
