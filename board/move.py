@@ -141,6 +141,11 @@ class Move:
     
     def pinnedB(self, gamestate, legalMoves, rank, file):
         """
+        :param gamestate: current chess board state
+        :param legalMoves: list of legal moves for a black piece
+        :param rank: x coordinate of black piece
+        :param file: y coordinate of black piece
+        :returns: list of moves that do not result in a check on the black king
         """
 
         temp = None
