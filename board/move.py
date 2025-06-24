@@ -4,10 +4,38 @@ class Move:
 
     def __init__(self): pass
 
-
     def updatePosition(self, rank, file):
         pos = rank * 8 + file
         return pos
+
+    def pinned(self, gamestate, legalMoves, rank, file, assoc):
+        """
+        :param gamestate: current chess board state
+        :param legalMoves: list of a piece's moves
+        :param rank: x coordinate of piece
+        :param file: y coordinate of piece
+        :returns: list of moves that do not result in a check on the king
+        """
+
+        moves = []
+        temp = None
+        for move in legalMoves:
+            x, y = move[0], move[1]
+            temp = gamestate[x][y].piece
+            gamestate[x][y].piece = gamestate[rank][file].piece
+            gamestate[rank][file].piece = Null()
+            
+            if (assoc == "Black"):
+                if (len(self.checkB) == 0):
+                    moves.append(move)
+            else:
+                if (len(self.checkW) == 0):
+                    moves.append(move)
+
+            gamestate[rank][file].piece = gamestate[x][y].piece
+            gamestate[x][y].piece = temp
+
+        return moves
 
     def enpassant(self, gamestate, rank, file):
         """
@@ -93,6 +121,49 @@ class Move:
                         
         return []
 
+    def movesInCheck(self, gamestate, assoc):
+        """
+        """
+
+        moves = []
+        temp = None
+
+        for rank in range(8):
+            for file in range(8):
+                if (gamestate[rank][file].piece.association == assoc):
+                    legalMoves = gamestate[rank][file].piece.legalMoves(gamestate)
+
+                    for move in legalMoves:
+                        x, y = move[0], move[1]
+                        temp = gamestate[x][y].piece
+                        gamestate[x][y].piece = gamestate[rank][file].piece
+                        gamestate[rank][file].piece = Null()
+                        gamestate[x][y].piece.position = self.updatePosition(x, y)
+
+                        if (assoc == "Black"):
+                            if (len(self.checkB) == 0):
+                                moves.append([rank, file, x, y])
+                                gamestate[rank][file].piece = gamestate[x][y].piece
+                                gamestate[x][y].piece = temp
+                                gamestate[rank][file].piece.position = self.updatePosition(rank, file)
+                            else:
+                                gamestate[rank][file].piece = gamestate[x][y].piece
+                                gamestate[x][y].piece = temp
+                                gamestate[rank][file].piece.position = self.updatePosition(rank, file)
+                        else:
+                            if (len(self.checkW) == 0):
+                                moves.append([rank, file, x, y])
+                                gamestate[rank][file].piece = gamestate[x][y].piece
+                                gamestate[x][y].piece = temp
+                                gamestate[rank][file].piece.position = self.updatePosition(rank, file)
+                            else:
+                                gamestate[rank][file].piece = gamestate[x][y].piece
+                                gamestate[x][y].piece = temp
+                                gamestate[rank][file].piece.position = self.updatePosition(rank, file)
+
+        return moves
+
+
     def castleB(self, gamestate):
         """
         :param gamestate: current chess board state
@@ -137,34 +208,5 @@ class Move:
                             gamestate[7][5].piece.assocaition is None):
                             moves.append([7, 6])
         
-        return moves
-    
-    def pinned(self, gamestate, legalMoves, rank, file, assoc):
-        """
-        :param gamestate: current chess board state
-        :param legalMoves: list of a piece's moves
-        :param rank: x coordinate of piece
-        :param file: y coordinate of piece
-        :returns: list of moves that do not result in a check on the king
-        """
-
-        moves = []
-        temp = None
-        for move in legalMoves:
-            x, y = move[0], move[1]
-            temp = gamestate[x][y].piece
-            gamestate[x][y].piece = gamestate[rank][file].piece
-            gamestate[rank][file].piece = Null()
-            
-            if (assoc == "Black"):
-                if (len(self.checkB) == 0):
-                    moves.append(move)
-            else:
-                if (len(self.checkW) == 0):
-                    moves.append(move)
-
-            gamestate[rank][file].piece = gamestate[x][y].piece
-            gamestate[x][y].piece = temp
-
         return moves
             
