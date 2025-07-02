@@ -5,7 +5,7 @@ class Bishop(Piece):
 
     association = None
     position = None
-    directions = [(1,1),(-1,1),(1,-1)(-1,-1)]
+    directions = [(1,1),(-1,1),(1,-1),(-1,-1)]
 
     def __init__(self, assoc, pos):
         self.association = assoc
