@@ -23,19 +23,41 @@ board.printBoard()
 dark = (119, 149, 86)
 light = (235, 236, 208)
 
-playing = True
-while playing:
-    for event in pygame.event.get():
-        if (event.type == pygame.QUIT):
-            playing = False
-            pygame.quit()
-
-def renderSquare(color, w, h, x, y):
+def renderSquare(color, x, y):
     """
     """
 
     pygame.draw.rect(
         surface= window,
         color= color,
-        rect= [x, y, w, h]
+        rect= [x, y, 100, 100]
     )
+
+def renderBoard():
+    """
+    """
+
+    x = y = temp = 0
+    for rank in range(8):
+        for file in range(8):
+            if (temp % 2 == 0):
+                renderSquare(light, x, y)
+        
+            else: 
+                renderSquare(dark, x, y)
+            x += 100
+            temp += 1
+        temp += 1
+        y += 100
+        x = 0
+
+renderBoard()
+
+playing = True
+while playing:
+    for event in pygame.event.get():
+        if (event.type == pygame.QUIT):
+            playing = False
+            pygame.quit()
+    
+        pygame.display.update()
