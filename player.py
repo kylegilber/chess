@@ -24,9 +24,6 @@ dark = (119, 149, 86)
 light = (235, 236, 208)
 
 def renderSquare(color, x, y):
-    """
-    """
-
     pygame.draw.rect(
         surface= window,
         color= color,
@@ -34,17 +31,18 @@ def renderSquare(color, x, y):
     )
 
 def renderBoard():
-    """
-    """
-
     x = y = temp = 0
     for rank in range(8):
         for file in range(8):
-            if (temp % 2 == 0):
-                renderSquare(light, x, y)
-        
-            else: 
-                renderSquare(dark, x, y)
+            if (temp % 2 == 0): renderSquare(light, x, y)
+            else: renderSquare(dark, x, y)
+            if (board.gamestate[rank][file].piece.tostring() != "-"):
+                img = pygame.image.load("./assets/" + 
+                    board.gamestate[rank][file].piece.tostring().lower() + 
+                    board.gamestate[rank][file].piece.association[0].lower() +
+                    ".svg")
+                img = pygame.transform.scale(img, (100,100))
+                window.blit(img, [x, y])
             x += 100
             temp += 1
         temp += 1
