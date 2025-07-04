@@ -16,6 +16,7 @@ clock = pygame.time.Clock()
 
 # Initialize chessboard
 board = Board()
+move = Move()
 board.setupBoard()
 board.printBoard()
 
@@ -51,11 +52,48 @@ def renderBoard():
 
 renderBoard()
 
+
+
+## LOCAL
+
+turn = 0
+moves = []
 playing = True
+
 while playing:
     for event in pygame.event.get():
+
         if (event.type == pygame.QUIT):
             playing = False
             pygame.quit()
+            quit()
     
+        if (len(moves) == 0):
+            if (turn % 2 == 1):
+                if (len(move.checkB(board.gamestate)) != 0):
+                    if (len(move.movesInCheck(board.gamestate, "Black")) == 0):
+                        playing = False
+                        result = "White"
+                else:
+                    check = False
+                    for rank in range(8):
+                        for file in range(8):
+                            if (board.gamestate[rank][file].piece.association == "Black"):
+                                movesl = board.gamestate[rank][file].piece.legalMoves(board.gamestate)
+                                temp = move.pinned(board.gamestate, movesl, rank, file, "Black")
+                                if (len(temp) == 0): continue
+                                else:
+                                    check = True
+                                    break
+                        if (check): break
+
+                    if not check: 
+                        playing = False
+                        result = "Stalemate"
+            else:
+                if (len(move.checkW(board.gamestate)) != 0):
+                    if (len(move.movesInCheck(board.gamestate, "White")) == 0):
+                        playing = False
+                        result = "Black"
+
         pygame.display.update()
