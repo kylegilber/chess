@@ -51,14 +51,11 @@ def renderBoard():
         x = 0
 
 def isCheckmate(assoc):
-    if (assoc == "Black"):
-        checks = move.checkB(board.gamestate)
-    else: checks = move.checkW(board.gamestate)
+    checks = move.checkB(board.gamestate) if assoc == "Black" else move.checkW(board.gamestate)
 
-    if (len(checks) != 0):
+    if checks:
         moves = move.movesInCheck(board.gamestate, assoc)
-        if (len(moves) == 0): 
-            return True
+        return (len(moves) == 0)
     return False
 
 def isStalemate(assoc):
@@ -106,5 +103,5 @@ while playing:
                     if (isStalemate("White")):
                         playing = False
                         result = "Stalemate"
-                        
+
         pygame.display.update()
