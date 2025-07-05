@@ -50,7 +50,7 @@ def renderBoard():
         y += 100
         x = 0
 
-def ischeckmate(assoc):
+def isCheckmate(assoc):
     if (assoc == "Black"):
         checks = move.checkB(board.gamestate)
     else: checks = move.checkW(board.gamestate)
@@ -61,11 +61,19 @@ def ischeckmate(assoc):
             return True
     return False
 
+def isStalemate(assoc):
+    for rank in range(8):
+        for file in range(8):
+            piece = board.gamestate[rank][file].piece
+            if (piece.association == assoc):
+                moves = piece.legalMoves(board.gamestate)
+                moves = move.pinned(board.gamestate, moves, rank, file, assoc)
+                if (len(moves) > 0): 
+                    return False
+    return True
 
 
 renderBoard()
-
-
 
 ## LOCAL
 
@@ -83,50 +91,20 @@ while playing:
     
         if (len(moves) == 0):
             if (turn % 2 == 1):
-                if (ischeckmate("Black")):
+                if (isCheckmate("Black")):
                     playing = False
                     result = "White"
+                else:
+                    if (isStalemate("Black")):
+                        playing = False
+                        result = "Stalemate"
             else:
-                if (ischeckmate("White")):
+                if (isCheckmate("White")):
                     playing = False
                     result = "Black"
-
                 else:
-                    check = False
-                    for rank in range(8):
-                        for file in range(8):
-                            if (board.gamestate[rank][file].piece.association == "Black"):
-                                movesl = board.gamestate[rank][file].piece.legalMoves(board.gamestate)
-                                temp = move.pinned(board.gamestate, movesl, rank, file, "Black")
-                                if (len(temp) == 0): continue
-                                else:
-                                    check = True
-                                    break
-                        if (check): break
-
-                    if not check: 
+                    if (isStalemate("White")):
                         playing = False
                         result = "Stalemate"
-            else:
-                if (len(move.checkW(board.gamestate)) != 0):
-                    if (len(move.movesInCheck(board.gamestate, "White")) == 0):
-                        playing = False
-                        result = "Black"
-                else:
-                    check = False
-                    for rank in range(8):
-                        for file in range(8):
-                            if (board.gamestate[rank][file].piece.association == "White"):
-                                movesl = board.gamestate[rank][file].piece.legalMoves(board.gamestate)
-                                temp = move.pinned(board.gamestate, movesl, rank, file, "White")
-                                if (len(temp) == 0): continue
-                                else:
-                                    check = True
-                                    break
-                        if (check): break
-
-                    if not check: 
-                        playing = False
-                        result = "Stalemate"
-
+                        
         pygame.display.update()
