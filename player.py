@@ -52,7 +52,6 @@ def renderBoard():
 
 def isCheckmate(assoc):
     checks = move.checkB(board.gamestate) if assoc == "Black" else move.checkW(board.gamestate)
-
     if checks:
         moves = move.movesInCheck(board.gamestate, assoc)
         return (len(moves) == 0)
@@ -65,9 +64,21 @@ def isStalemate(assoc):
             if (piece.association == assoc):
                 moves = piece.legalMoves(board.gamestate)
                 moves = move.pinned(board.gamestate, moves, rank, file, assoc)
-                if (len(moves) > 0): 
-                    return False
+                if moves: return False
     return True
+
+def isGameOver(turn):
+    if (turn % 2 == 1):
+        if (isCheckmate("Black")):
+            return True, "White"
+        if (isStalemate("Black")):
+            return True, "Stalemate"
+    else:
+        if (isCheckmate("White")):
+            return True, "Black"
+        if (isStalemate("White")):
+            return True, "Stalemate"
+    return False, None
 
 
 renderBoard()
@@ -87,21 +98,6 @@ while playing:
             quit()
     
         if (len(moves) == 0):
-            if (turn % 2 == 1):
-                if (isCheckmate("Black")):
-                    playing = False
-                    result = "White"
-                else:
-                    if (isStalemate("Black")):
-                        playing = False
-                        result = "Stalemate"
-            else:
-                if (isCheckmate("White")):
-                    playing = False
-                    result = "Black"
-                else:
-                    if (isStalemate("White")):
-                        playing = False
-                        result = "Stalemate"
+            playing, result = isGameOver(turn)
 
         pygame.display.update()
