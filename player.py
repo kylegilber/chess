@@ -16,13 +16,14 @@ clock = pygame.time.Clock()
 
 # Initialize chessboard
 board = Board()
-move = Move()
+mover = Move()
 board.setupBoard()
 board.printBoard()
 
 # Colors
 dark = (119, 149, 86)
 light = (235, 236, 208)
+highlight = (247,245,125)
 
 def renderSquare(color, x, y):
     pygame.draw.rect(
@@ -51,9 +52,9 @@ def renderBoard():
         x = 0
 
 def isCheckmate(assoc):
-    checks = move.checkB(board.gamestate) if assoc == "Black" else move.checkW(board.gamestate)
+    checks = mover.checkB(board.gamestate) if assoc == "Black" else mover.checkW(board.gamestate)
     if checks:
-        moves = move.movesInCheck(board.gamestate, assoc)
+        moves = mover.movesInCheck(board.gamestate, assoc)
         return (len(moves) == 0)
     return False
 
@@ -63,7 +64,7 @@ def isStalemate(assoc):
             piece = board.gamestate[rank][file].piece
             if (piece.association == assoc):
                 moves = piece.legalMoves(board.gamestate)
-                moves = move.pinned(board.gamestate, moves, rank, file, assoc)
+                moves = mover.pinned(board.gamestate, moves, rank, file, assoc)
                 if moves: return False
     return True
 
@@ -80,13 +81,13 @@ def isGameOver(turn):
             return True, "Stalemate"
     return False, None
 
-
 renderBoard()
 
 ## LOCAL
 
 turn = 0
-moves = []
+hist = []
+promote = []
 playing = True
 
 while playing:
@@ -97,7 +98,22 @@ while playing:
             pygame.quit()
             quit()
     
-        if (len(moves) == 0):
-            playing, result = isGameOver(turn)
+        if (event.type == pygame.MOUSEBUTTONDOWN):
+            coord = pygame.mouse.get_pos()
+            rank, file = coord[1] // 100, coord[0] // 100
+
+            if (len(hist) == 0):
+                playing, result = isGameOver(turn)
+
+                color = "Black" if (turn % 2 == 1) else "White"
+                func = mover.checkB if (color == "Black") else mover.checkW
+                moves = mover.movesInCheck(board.gamestate, color) if (func(board.gamestate)) else None
+
+                if moves:
+                    for move in moves:
+                        if (rank == move[0] and file == move[1]):
+                            hist.append([move[2], move[3]])
+                            break
+                    
 
         pygame.display.update()
