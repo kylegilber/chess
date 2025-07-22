@@ -26,10 +26,10 @@ class Move:
             gamestate[rank][file].piece = Null()
             
             if (assoc == "Black"):
-                if (len(self.checkB) == 0):
+                if (len(self.checkB(gamestate)) == 0):
                     moves.append(move)
             else:
-                if (len(self.checkW) == 0):
+                if (len(self.checkW(gamestate)) == 0):
                     moves.append(move)
 
             gamestate[rank][file].piece = gamestate[x][y].piece
@@ -141,7 +141,7 @@ class Move:
                         gamestate[x][y].piece.position = self.updatePosition(x, y)
 
                         if (assoc == "Black"):
-                            if (len(self.checkB) == 0):
+                            if (len(self.checkB(gamestate)) == 0):
                                 moves.append([rank, file, x, y])
                                 gamestate[rank][file].piece = gamestate[x][y].piece
                                 gamestate[x][y].piece = temp
@@ -151,7 +151,7 @@ class Move:
                                 gamestate[x][y].piece = temp
                                 gamestate[rank][file].piece.position = self.updatePosition(rank, file)
                         else:
-                            if (len(self.checkW) == 0):
+                            if (len(self.checkW(gamestate)) == 0):
                                 moves.append([rank, file, x, y])
                                 gamestate[rank][file].piece = gamestate[x][y].piece
                                 gamestate[x][y].piece = temp
