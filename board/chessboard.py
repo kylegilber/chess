@@ -8,11 +8,11 @@ class Board:
         squares for each piece type and color.
         """
 
-        self.white = np.uint64(0) 
-        self.black = np.uint64(0) 
-        self.bishop = np.uint64(0)
-        self.king = np.uint64(0) 
-        self.knight = np.uint64(0) 
-        self.pawn = np.uint64(0) 
-        self.queen = np.uint64(0) 
-        self.rook = np.uint64(0)
+        self.whiteBitBoard = np.uint64(0) 
+        self.blackBitBoard = np.uint64(0) 
+        self.bishopBitBoard = np.uint64(0)
+        self.kingBitBoard = np.uint64(0) 
+        self.knightBitBoard = np.uint64(0) 
+        self.pawnBitBoard = np.uint64(0) 
+        self.queenBitBoard = np.uint64(0) 
+        self.rookBitBoard = np.uint64(0)
