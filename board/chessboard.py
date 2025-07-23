@@ -20,4 +20,17 @@ class Board:
         self.white = np.uint64(0x000000000000FFFF) 
         self.black = np.uint64(0xFFFF000000000000) 
 
+    def getBit(self, bitboard, rank, file):
+        """
+        Get the bit state at a certain square.
+
+        :arg bitboard: bitboard to check
+        :arg rank: row of square
+        :arg file: column of square
+        
+        :returns: The state of the bit corresponding to the square.
+        """
+
+        square = (rank * 8 + file)
+        return 1 if int(bitboard) & (1 << square) else 0
     
