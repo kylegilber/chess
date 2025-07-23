@@ -1,6 +1,12 @@
 import pygame
+from enum import Enum
 from board.chessboard import Board
 from board.move import Move
+from pieces.queen import Queen
+from pieces.rook import Rook
+from pieces.bishop import Bishop
+from pieces.knight import Knight
+from pieces.null import Null
 
 # Initialize pygame
 pygame.init()
@@ -24,6 +30,14 @@ board.printBoard()
 dark = (119, 149, 86)
 light = (235, 236, 208)
 highlight = (247,245,125)
+
+class Pieces(Enum):
+    QUEEN = 0
+    ROOK = 1
+    KNIGHT = 2
+    BISHOP = 3
+    NEXT = 4
+    PAWN = 5
 
 def renderSquare(color, x, y):
     pygame.draw.rect(
@@ -114,6 +128,6 @@ while playing:
                         if (rank == move[0] and file == move[1]):
                             hist.append([move[2], move[3]])
                             break
-                    
+
 
         pygame.display.update()
