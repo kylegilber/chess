@@ -65,6 +65,11 @@ def renderBoard():
         y += 100
         x = 0
 
+def getPosition(x, y):
+    temp = x * 8
+    pos = temp + y
+    return pos
+
 def isCheckmate(assoc):
     checks = mover.checkB(board.gamestate) if assoc == "Black" else mover.checkW(board.gamestate)
     if checks:
@@ -128,6 +133,5 @@ while playing:
                         if (rank == move[0] and file == move[1]):
                             hist.append([move[2], move[3]])
                             break
-
 
         pygame.display.update()
