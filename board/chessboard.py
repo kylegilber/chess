@@ -6,11 +6,21 @@ from pieces.pawn import Pawn
 from pieces.queen import Queen
 from pieces.rook import Rook
 from board.square import Square
+import numpy as np
 
 class Board:
 
-    gamestate = [[0 for rank in range(8)] for file in range(8)]
+    def __init__(self):
+        self.white = np.uint64(0) 
+        self.black = np.uint64(0) 
+        self.bishop = np.uint64(0)
+        self.king = np.uint64(0) 
+        self.knight = np.uint64(0) 
+        self.pawn = np.uint64(0) 
+        self.queen = np.uint64(0) 
+        self.rook = np.uint64(0)
 
+    gamestate = [[0 for rank in range(8)] for file in range(8)]
 
     def setupBoard(self):
         """
