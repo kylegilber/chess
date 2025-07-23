@@ -1,8 +1,21 @@
-from pieces.null import Null
+from chessboard import Board
 
 class Move:
 
     def __init__(self): pass
+
+    def getBit(self, bitboard, rank, file):
+        """
+        Get the bit state at a certain square.
+
+        :arg bitboard (uint64): bitboard to check
+        :arg rank (int): row of square
+        :arg file (int): column of square
+        
+        :returns: The state of the bit corresponding to the square.
+        """
+        square = (rank * 8 + file)
+        return 1 if int(bitboard) & (1 << square) else 0
 
     def updatePosition(self, rank, file):
         pos = rank * 8 + file
@@ -200,7 +213,7 @@ class Move:
                     if (gamestate[7][0].piece.moved == False):
                         if (gamestate[7][1].piece.association is None and
                             gamestate[7][2].piece.association is None and
-                            gamestate[7[3].piece.associaiton is None]):
+                            gamestate[7][3].piece.associaiton is None):
                             moves.append([7, 2])
                 if (gamestate[7][7].piece.tostring() == "R"):
                     if (gamestate[7][7].piece.moved == False):
@@ -209,4 +222,3 @@ class Move:
                             moves.append([7, 6])
         
         return moves
-            
