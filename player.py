@@ -134,4 +134,19 @@ while playing:
                             hist.append([move[2], move[3]])
                             break
 
+            if promote:
+                x, y = promote[Pieces.PAWN]
+                pawn = board.gamestate[x][y].piece
+                if (pawn.association == "Black"):
+                    for piece, pos in enumerate(promote):
+                        if (piece == Pieces.NEXT):
+                            turn -= 1
+                            break
+                        if (pos[0] == rank and pos[1] == file):
+                            choice = [Queen, Rook, Bishop, Knight][piece]
+                            x, y = promote[Pieces.NEXT]
+                            board.gamestate[x][y].piece = choice("Black", getPosition(x, y))
+                            pawn = Null()
+                            break
+
         pygame.display.update()
