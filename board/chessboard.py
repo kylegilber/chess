@@ -34,12 +34,26 @@ class Board:
 
     def getBit(self, bitboard, index):
         """
-        Get the bit state at a certain square.
+        Get the bit state at index.
 
-        :arg bitboard: bitboard to check
-        :arg index: index of square
+        :args:
+        bitboard (uint64) - bitboard to check
+        index (int) - index of square
 
-        :returns: bit state corresponding to square.
+        :returns: Bit state at index corresponding to a square.
         """
 
         return 1 if int(bitboard) & (1 << index) else 0
+    
+    def setBit(self, bitboard, index):
+        """
+        Set the bit state to 1 at index.
+
+        :args:
+        bitboard (uint64) - bitboard to check
+        index (int) - index of square
+
+        :returns: New bitboard with set bit
+        """
+
+        return int(bitboard) | (1 << index)
