@@ -34,7 +34,7 @@ class Board:
 
     def getBit(self, bitboard, index):
         """
-        Get the bit state at index.
+        Get the bit state at an index.
 
         :args:
         bitboard (uint64) - bitboard to check
@@ -47,13 +47,26 @@ class Board:
     
     def setBit(self, bitboard, index):
         """
-        Set the bit state to 1 at index.
+        Set the bit state to 1 at an index.
 
         :args:
         bitboard (uint64) - bitboard to check
         index (int) - index of square
 
-        :returns: New bitboard with set bit
+        :returns: New bitboard with bit at index set to 1.
         """
 
         return int(bitboard) | (1 << index)
+    
+    def popBit(self, bitboard, index):
+        """
+        Clear the bit at an index.
+
+        :args:
+        bitboard (uint64) - bitboard to check
+        index (int) - index of square
+
+        :returns: New bitboard with bit at index set to 0.
+        """
+
+        return int(bitboard) & ~(1 << index)
