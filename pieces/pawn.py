@@ -1,5 +1,5 @@
 from pieces.piece import Piece
-from board.constants import Square, Color
+from board.constants import Color
 import numpy as np
 
 class Pawn(Piece):
@@ -9,8 +9,11 @@ class Pawn(Piece):
 
     def getAttacks(self):
         """
-        Initialize pawn attack bitboards, which are the set of 
-        squares that a pawn can attack from each board position.
+        Initialize attack bitboards for pawns. 
+        
+        For each possible pawn position on the board,
+        update the attacks instance variable to store which
+        squares pawns of each color can attack at that position. 
         """
 
         for square in range(64):
