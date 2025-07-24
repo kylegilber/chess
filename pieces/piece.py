@@ -70,7 +70,7 @@ class Piece:
         directions (list): rank, file tuples
 
         {returns}
-        Bitboard with blocking squares set to 1.
+        mask (uint64): bitboard with blocking squares set to 1.
         """
         
         mask = np.uint64(0)
@@ -87,3 +87,29 @@ class Piece:
                 f += xfile
 
         return mask
+    
+    def permuteBlockers(self, mask):
+        """
+        Generate all blocker permutations for a given bitboard.
+
+        {args}
+        mask (uint64): bitboard representing all blockers
+
+        {returns}
+        list[int]: unique permutations of blockers
+        """
+
+        permutations = []
+
+        # Get indices of "set" bits
+        bits = [square for square in range(64) if ((mask >> square) &  1)]
+
+        # Bitmask enumeration
+        for permutation in range(1 << len(bits)):
+            blockers = 0
+            for pos, index in enumerate(bits):
+                if ((permutation >> pos) & 1):
+                    blockers |= 1 << index
+            permutations.append(blockers)
+
+        return permutations
