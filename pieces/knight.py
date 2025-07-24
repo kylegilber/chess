@@ -1,5 +1,4 @@
 from pieces.piece import Piece
-import numpy as np
 
 class Knight(Piece):
 
@@ -21,21 +20,5 @@ class Knight(Piece):
         """
 
         for square in range(64):
-
-            # Create bitboard with knight on square
-            bit = np.uint64(1) << square
-
-            # Init empty bitboard
-            mask = np.uint64(0)
-
-            rank, file = self.getCoord(square)
-
-            # Check if each move is inbounds
-            for xr, xf in self.MOVES:
-                r, f = xr + rank, xf + file
-                if (-1 < r < 8 and -1 < f < 8):
-                    index = self.getIndex(r, f)
-                    mask |= np.uint64(1) << index
-            
-            # Accumulate knight's legal attacks
+            mask = self.maskAttacks(square, self.MOVES)
             self.attacks[square] = mask
