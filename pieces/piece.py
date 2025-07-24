@@ -33,24 +33,24 @@ class Piece:
 
         return rank * 8 + file
 
-    def maskAttacks(self, square, moves):
+    def maskAttacks(self, square, directions):
         """
         Generate attack bitboards for color-independent 
         pieces from a list of their possible movements.
 
         {args}
         square (int): index of square
-        moves (list): rank, file tuples
+        directions (list): rank, file tuples
 
         {returns}
-        Bitboard with attack squares set to 1
+        Bitboard with attack squares set to 1.
         """
 
         # Init empty bitboard
         mask = np.uint64(0)
-
         rank, file = self.getCoord(square)
-        for xrank, xfile in moves:
+
+        for xrank, xfile in directions:
             r = rank + xrank
             f = file + xfile
 
@@ -60,6 +60,30 @@ class Piece:
                 mask |= np.uint64(1) << index
 
         return mask
+    
+    def maskBlockers(self, square, directions):
+        """
+        Generate bitboards of positions blocking the movement of sliding pieces.
 
+        {args}
+        square (int): index of square
+        directions (list): rank, file tuples
 
+        {returns}
+        Bitboard with blocking squares set to 1.
+        """
+        
+        mask = np.uint64(0)
+        rank, file = self.getCoord(square)
 
+        for xrank, xfile in directions:
+            r = rank + xrank
+            f = file + xfile
+
+            while (0 < r < 7) and (0 < f < 7):
+                index = self.getIndex(r, f)
+                mask |= np.uint64(1) << index
+                r += xrank
+                f += xfile
+
+        return mask
