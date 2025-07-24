@@ -12,7 +12,7 @@ class Knight(Piece):
 
     def getAttacks(self):
         """
-        Initialize attack bitboards for knights.
+        Generate attack tables for Knights.
 
         For each possible knight position on the board,
         update the attacks instance variable to store which
