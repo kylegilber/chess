@@ -2,11 +2,6 @@ import pygame
 from enum import Enum
 from board.chessboard import Board
 from board.move import Move
-from pieces.queen import Queen
-from pieces.rook import Rook
-from pieces.bishop import Bishop
-from pieces.knight import Knight
-from pieces.null import Null
 
 # Initialize pygame
 pygame.init()
