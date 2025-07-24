@@ -5,7 +5,7 @@ import numpy as np
 class Pawn(Piece):
 
     def __init__(self):
-        super().__init__()
+        self.attacks = [[0 for square in range(64)] for color in range(2)]
 
     def getAttacks(self):
         """
