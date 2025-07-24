@@ -20,19 +20,6 @@ class Board:
         self.white = np.uint64(0x000000000000FFFF) 
         self.black = np.uint64(0xFFFF000000000000) 
 
-    def getIndex(self, rank, file):
-        """
-        Calculate square index from coordinates.
-
-        {args}
-        rank (int): row of square
-        file (int): column of square
-
-        {returns} index corresponding to square.
-        """
-
-        return rank * 8 + file
-
     def getBit(self, bitboard, index):
         """
         Get the bit state at an index.
