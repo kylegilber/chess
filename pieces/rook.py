@@ -27,10 +27,10 @@ class Rook(Piece):
             # Generate all blocker permutations
             permutations = self.permuteBlockers(mask)
 
-            magicNum = magicmoves.rookMagic
-            shiftNum = magicmoves.rookShift
+            magic = magicmoves.rookMagic[square]
+            shift = magicmoves.rookShift[square]
 
             for blocker in permutations:
-                index = ((blocker & mask) * magicNum) >> shiftNum
+                index = ((blocker & mask) * magic) >> shift
                 squares = self.maskSlidingAttacks(square, self.DIRECTIONS, blocker)
                 self.attacks[square][index] = squares
