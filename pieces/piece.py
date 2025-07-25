@@ -113,3 +113,37 @@ class Piece:
             permutations.append(blockers)
 
         return permutations
+    
+    def maskSlidingAttacks(self, square, directions, blockers):
+        """
+        Generate bitboard of attacks for a sliding piece.
+
+        {args}
+        square (int): index of given square
+        directions (list): rank, file tuples 
+        blockers (uint64): bitboard of blocked squares
+
+        {returns}
+        mask (uint64): bitboard with legal attack squares set to 1.
+        """
+
+        # Init empty bitboard
+        mask = np.uint64(0)
+        rank, file = self.getCoord(square)
+
+        for xrank, xfile in directions:
+            r = rank + xrank
+            f = file + xfile
+
+            # Accumulate valid attacks
+            while (-1 < r < 8) and (-1 < f < 8):
+                index = self.getIndex(r, f)
+                mask |= np.uint64(1) << index
+
+                if (blockers & (np.uint64(1) << index)):
+                    break
+
+                r += xrank
+                f += xfile
+
+        return mask
