@@ -14,7 +14,7 @@ class Rook(Piece):
         """
         Generate attack tables for Rooks.
 
-        For each possible bishop position on the board,
+        For each possible Rook position on the board,
         update the attacks instance variable to store which
         squares the Rook can attack at that position.
         """
