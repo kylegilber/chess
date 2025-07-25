@@ -32,5 +32,5 @@ class Bishop(Piece):
 
             for blocker in permutations:
                 index = ((blocker & mask) * magicNum) >> shiftNum
-                attacks = self.maskSlidingAttacks(square, self.DIRECTIONS, blocker)
-                self.attacks[square][index] = attacks
+                squares = self.maskSlidingAttacks(square, self.DIRECTIONS, blocker)
+                self.attacks[square][index] = squares
