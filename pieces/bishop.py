@@ -10,7 +10,7 @@ class Bishop(Piece):
     def __init__(self):
         self.attacks = [{} for square in range(64)]
 
-    def getAttacks(self):
+    def makeAttackTable(self):
         """
         Generate attack tables for bishops.
 
@@ -34,3 +34,9 @@ class Bishop(Piece):
                 index = ((blocker & mask) * magicNum) >> shiftNum
                 squares = self.maskSlidingAttacks(square, self.DIRECTIONS, blocker)
                 self.attacks[square][index] = squares
+
+    def getMoves(self, square, pieces, allies):
+        """
+        """
+
+

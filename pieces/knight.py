@@ -10,7 +10,7 @@ class Knight(Piece):
     def __init__(self):
         super().__init__()
 
-    def getAttacks(self):
+    def makeAttackTable(self):
         """
         Generate attack tables for Knights.
 

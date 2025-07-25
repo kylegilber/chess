@@ -14,7 +14,7 @@ class Queen(Piece):
     def __init__(self):
         self.attacks = [{} for square in range(64)]
 
-    def getAttacks(self):
+    def makeAttackTable(self):
         """
         Generate attack tables for Queens.
 
