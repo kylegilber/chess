@@ -8,7 +8,19 @@ class Piece:
     rDirections = [(-1,0),(1,0),(0,1),(0,-1)]
 
     def __init__(self):
+
+        # Init attack table for non-sliding pieces
         self.attacks = [0 for square in range(64)]
+
+        # Get diagonal blockers
+        self.bblockers = [
+            self.maskBlockers(square, self.bDirections) for square in range(64)
+        ]
+
+        # Get perpendicular blockers
+        self.rblockers = [
+            self.maskBlockers(square, self.rDirections) for square in range(64)
+        ]
 
     def getCoord(self, index):
         """
