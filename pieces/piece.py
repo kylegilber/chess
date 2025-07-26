@@ -2,6 +2,11 @@ import numpy as np
 
 class Piece:
 
+    bDirections = [(1,1),(-1,1),(1,-1),(-1,-1)]
+    kDirections = [(1,0),(0,1),(1,-1),(-1,-1),(-1,1),(1,1),(-1,0),(0,-1)]
+    nDirections = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)]
+    rDirections = [(-1,0),(1,0),(0,1),(0,-1)]
+
     def __init__(self):
         self.attacks = [0 for square in range(64)]
 
