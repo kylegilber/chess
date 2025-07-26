@@ -9,6 +9,7 @@ class Rook(Piece):
 
     def __init__(self):
         self.attacks = [{} for square in range(64)]
+        self.blockers = [self.maskBlockers(square, self.DIRECTIONS) for square in range(64)]
 
     def makeAttackTable(self):
         """
@@ -21,8 +22,8 @@ class Rook(Piece):
 
         for square in range(64):
 
-            # Generate blockers
-            mask = self.maskBlockers(square, self.DIRECTIONS)
+            # Retrieve blockers
+            mask = self.blockers[square]
 
             # Generate all blocker permutations
             permutations = self.permuteBlockers(mask)
