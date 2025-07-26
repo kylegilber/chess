@@ -17,17 +17,10 @@ class Rook(Piece):
         """
 
         for square in range(64):
-
-            # Retrieve blockers
-            mask = self.blockers[square]
-
-            # Generate all blocker permutations
-            permutations = self.permuteBlockers(mask)
-
             magic = magicmoves.rookMagic[square]
             shift = magicmoves.rookShift[square]
 
-            for blocker in permutations:
-                index = ((blocker & mask) * magic) >> shift
-                squares = self.maskSlidingAttacks(square, self.DIRECTIONS, blocker)
+            for blocker in self.rPermutations:
+                index = ((blocker & self.rBlockers) * magic) >> shift
+                squares = self.maskSlidingAttacks(square, self.rDirections, blocker)
                 self.attacks[square][index] = squares
