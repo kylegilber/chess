@@ -16,13 +16,21 @@ class Bishop(Piece):
         """
 
         for square in range(64):
+
+            mask = self.bBlockers[square]
+            permutations = self.bPermutations[square]
+
             magicNum = magicmoves.bishopMagic[square]
             shiftNum = magicmoves.bishopShift[square]
 
-            for blocker in self.bPermutations:
-                index = ((blocker & self.bBlockers) * magicNum) >> shiftNum
+            for blocker in permutations:
+                index = ((blocker & mask) * magicNum) >> shiftNum
                 squares = self.maskSlidingAttacks(square, self.bDirections, blocker)
                 self.attacks[square][index] = squares
+
+    def getAttacks(self, square, pos):
+        """
+        """
 
     def getMoves(self, square, pieces, allies):
         """
