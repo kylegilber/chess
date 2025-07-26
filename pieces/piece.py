@@ -13,14 +13,20 @@ class Piece:
         self.attacks = [0 for square in range(64)]
 
         # Get diagonal blockers
-        self.bblockers = [
+        self.bBlockers = [
             self.maskBlockers(square, self.bDirections) for square in range(64)
         ]
 
-        # Get perpendicular blockers
-        self.rblockers = [
+        # Get orthogonal blockers
+        self.rBlockers = [
             self.maskBlockers(square, self.rDirections) for square in range(64)
         ]
+
+        # Permute diagonal blockers
+        self.bPermutations = self.permuteBlockers(self.bBlockers)
+
+        # Permute orthogonal blockers
+        self.rPermutations = self.permuteBlockers(self.rBlockers)
 
     def getCoord(self, index):
         """
