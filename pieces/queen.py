@@ -5,8 +5,6 @@ class Queen(Piece):
 
     def __init__(self):
         self.attacks = [{} for square in range(64)]
-        self.blockersB = [self.maskBlockers(square, self.bDIRECTIONS) for square in range(64)]
-        self.blockers
 
     def makeAttackTable(self):
         """
@@ -18,28 +16,19 @@ class Queen(Piece):
         """
 
         for square in range(64):
-            
-            # Get diagonal, perpendicular blockers
-            bMask = self.maskBlockers(square, self.bDIRECTIONS)
-            rMask = self.maskBlockers(square, self.rDIRECTIONS)
-
-            # Get permutations of blockers
-            bPermutations = self.permuteBlockers(bMask)
-            rPermutations = self.permuteBlockers(rMask)
-
             bMagic = magicmoves.bishopMagic[square]
             bShift = magicmoves.bishopShift[square]
             rMagic = magicmoves.rookMagic[square]
             rShift = magicmoves.rookShift[square]
 
-            for blocker in bPermutations:
-                index = ((blocker & bMask) * bMagic) >> bShift
-                squares = self.maskSlidingAttacks(square, self.bDIRECTIONS, blocker)
+            for blocker in self.bPermutations:
+                index = ((blocker & self.bBlockers) * bMagic) >> bShift
+                squares = self.maskSlidingAttacks(square, self.bDirections, blocker)
                 self.attacks[square][index] = squares
 
-            for blocker in rPermutations:
-                index = ((blocker & rMask) * rMagic) >> rShift
-                squares = self.maskSlidingAttacks(square, self.rDIRECTIONS, blocker)
+            for blocker in self.rPermutations:
+                index = ((blocker & self.rBlockers) * rMagic) >> rShift
+                squares = self.maskSlidingAttacks(square, self.rDirections, blocker)
                 
                 if (index in self.attacks[square]):
                     self.attacks[square][index] |= squares
