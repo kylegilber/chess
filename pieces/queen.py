@@ -3,16 +3,10 @@ import magicmoves
 
 class Queen(Piece):
 
-    bDIRECTIONS = [
-        (1, 1), (-1, 1), (1, -1), (-1, -1)
-    ]
-
-    rDIRECTIONS = [
-        (-1, 0), (1, 0), (0, 1), (0, -1)
-    ]
-
     def __init__(self):
         self.attacks = [{} for square in range(64)]
+        self.blockersB = [self.maskBlockers(square, self.bDIRECTIONS) for square in range(64)]
+        self.blockers
 
     def makeAttackTable(self):
         """

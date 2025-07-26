@@ -2,11 +2,6 @@ from pieces.piece import Piece
 
 class Knight(Piece):
 
-    MOVES = [
-        (1, 2), (1, -2), (-1, 2), (-1, -2),
-        (2, 1), (2, -1), (-2, 1), (-2, -1)
-    ]
-
     def __init__(self):
         super().__init__()
 

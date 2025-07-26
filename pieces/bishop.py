@@ -3,10 +3,6 @@ import magicmoves
 
 class Bishop(Piece):
 
-    DIRECTIONS = [
-        (1, 1), (-1, 1), (1, -1), (-1, -1)
-    ]
-
     def __init__(self):
         self.attacks = [{} for square in range(64)]
         self.blockers = [self.maskBlockers(square, self.DIRECTIONS) for square in range(64)]

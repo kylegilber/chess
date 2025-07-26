@@ -3,10 +3,6 @@ import magicmoves
 
 class Rook(Piece):
 
-    DIRECTIONS = [
-        (-1, 0), (1, 0), (0, 1), (0, -1)
-    ]
-
     def __init__(self):
         self.attacks = [{} for square in range(64)]
         self.blockers = [self.maskBlockers(square, self.DIRECTIONS) for square in range(64)]
