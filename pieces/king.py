@@ -2,8 +2,7 @@ from pieces.piece import Piece
 
 class King(Piece):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self): pass
 
     def makeAttackTable(self):
         """
@@ -15,5 +14,5 @@ class King(Piece):
         """
 
         for square in range(64):
-            mask = self.maskAttacks(square, self.MOVES)
+            mask = self.maskAttacks(square, self.kDirections)
             self.attacks[square] = mask
