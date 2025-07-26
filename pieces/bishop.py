@@ -5,7 +5,6 @@ class Bishop(Piece):
 
     def __init__(self):
         self.attacks = [{} for square in range(64)]
-        self.blockers = [self.maskBlockers(square, self.DIRECTIONS) for square in range(64)]
 
     def makeAttackTable(self):
         """
@@ -17,19 +16,12 @@ class Bishop(Piece):
         """
 
         for square in range(64):
-
-            # Generate blockers
-            mask = self.blockers[square]
-
-            # Generate all blocker permutations
-            permutations = self.permuteBlockers(mask)
-
             magicNum = magicmoves.bishopMagic[square]
             shiftNum = magicmoves.bishopShift[square]
 
-            for blocker in permutations:
-                index = ((blocker & mask) * magicNum) >> shiftNum
-                squares = self.maskSlidingAttacks(square, self.DIRECTIONS, blocker)
+            for blocker in self.bPermutations:
+                index = ((blocker & self.bBlockers) * magicNum) >> shiftNum
+                squares = self.maskSlidingAttacks(square, self.bDirections, blocker)
                 self.attacks[square][index] = squares
 
     def getMoves(self, square, pieces, allies):
