@@ -1,5 +1,4 @@
 from pieces.piece import Piece
-import magicmoves
 
 class Rook(Piece):
 
@@ -19,8 +18,7 @@ class Rook(Piece):
         for square in range(64):
 
             permutations = self.rPermutations[square]
-            magic = magicmoves.rookMagic[square]
-            shift = magicmoves.rookShift[square]
+            magic, shift = self.getMagicShift('r', square)
 
             for blocker in permutations:
                 index = (blocker * magic) >> shift
@@ -39,8 +37,7 @@ class Rook(Piece):
         Bitboard (uint64) of attackable squares.
         """
 
-        magic = magicmoves.rookMagic[square]
-        shift = magicmoves.rookShift[square]
+        magic, shift = self.getMagicShift('r', square)
         index = (blockers * magic) >> shift
 
         return self.attacks[square][index]
