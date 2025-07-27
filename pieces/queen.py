@@ -40,6 +40,14 @@ class Queen(Piece):
 
     def getAttacks(self, square, blockers):
         """
+        Get pseudo-legal Queen attacks.
+
+        {args}
+        square (int): index of square
+        blockers (uint64): bitboard of blockers
+
+        {returns}
+        Bitboard (uint64) of attackable squares.
         """
 
         bMagic = magicmoves.bishopMagic[square]
