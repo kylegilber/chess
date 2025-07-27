@@ -17,6 +17,7 @@ class Rook(Piece):
         """
 
         for square in range(64):
+
             permutations = self.rPermutations[square]
             magic = magicmoves.rookMagic[square]
             shift = magicmoves.rookShift[square]
@@ -25,3 +26,21 @@ class Rook(Piece):
                 index = (blocker * magic) >> shift
                 squares = self.maskSlidingAttacks(square, self.rDirections, blocker)
                 self.attacks[square][index] = squares
+
+    def getAttacks(self, square, blockers):
+        """
+        Get pseudo-legal Rook attacks.
+
+        {args}
+        square (int): index of square
+        blockers (uint64): bitboard of blockers
+
+        {returns}
+        Bitboard (uint64) of attackable squares.
+        """
+
+        magic = magicmoves.rookMagic[square]
+        shift = magicmoves.rookShift[square]
+        index = (blockers * magic) >> shift
+
+        return self.attacks[square][index]
