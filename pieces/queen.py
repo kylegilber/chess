@@ -20,10 +20,8 @@ class Queen(Piece):
             bPermutations = self.bPermutations[square]
             rPermutations = self.rPermutations[square]
 
-            bMagic = magicmoves.bishopMagic[square]
-            bShift = magicmoves.bishopShift[square]
-            rMagic = magicmoves.rookMagic[square]
-            rShift = magicmoves.rookShift[square]
+            bMagic, bShift = self.getMagicShift('b', square)
+            rMagic, rShift = self.getMagicShift('r', square)
 
             for blocker in bPermutations:
                 index = (blocker * bMagic) >> bShift
@@ -50,10 +48,8 @@ class Queen(Piece):
         Bitboard (uint64) of attackable squares.
         """
 
-        bMagic = magicmoves.bishopMagic[square]
-        bShift = magicmoves.bishopShift[square]
-        rMagic = magicmoves.rookMagic[square]
-        rShift = magicmoves.rookShift[square]
+        bMagic, bShift = self.getMagicShift('b', square)
+        rMagic, rShift = self.getMagicShift('r', square)
 
         bIndex = (blockers * bMagic) >> bShift
         rIndex = (blockers * rMagic) >> rShift
