@@ -16,8 +16,10 @@ class Queen(Piece):
         """
 
         for square in range(64):
+
             bPermutations = self.bPermutations[square]
             rPermutations = self.rPermutations[square]
+
             bMagic = magicmoves.bishopMagic[square]
             bShift = magicmoves.bishopShift[square]
             rMagic = magicmoves.rookMagic[square]
@@ -35,6 +37,21 @@ class Queen(Piece):
                 if (index in self.attacks[square]):
                     self.attacks[square][index] |= squares
                 else: self.attacks[square][index] = squares
+
+    def getAttacks(self, square, blockers):
+        """
+        """
+
+        bMagic = magicmoves.bishopMagic[square]
+        bShift = magicmoves.bishopShift[square]
+        rMagic = magicmoves.rookMagic[square]
+        rShift = magicmoves.rookShift[square]
+
+        bIndex = (blockers * bMagic) >> bShift
+        rIndex = (blockers * rMagic) >> rShift
+
+        return self.attacks[square][bIndex] | self.attacks[square][rIndex]
+        
 
 
 
