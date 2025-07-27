@@ -1,4 +1,5 @@
 import numpy as np
+import magicmoves
 
 class Piece:
 
@@ -170,3 +171,23 @@ class Piece:
                 f += xfile
 
         return mask
+    
+    def getMagicShift(self, piece, square):
+        """
+        Helper function for accessing magic & shift numbers for a given square.
+
+        {args}
+        piece (str): bishop 'b' or rook 'r'
+        square (int): index of square
+
+        {returns}
+        Magic & shift nums corresponding to piece, square.
+        """
+
+        if (piece == 'b'): 
+            return magicmoves.bishopMagic[square], magicmoves.bishopShift[square]
+        elif (piece == 'r'):
+            return magicmoves.rookMagic[square], magicmoves.rookShift[square]
+        else: 
+            raise ValueError(f"Unrecognized piece: {piece}.")
+
