@@ -1,5 +1,4 @@
 from pieces.piece import Piece
-import magicmoves
 
 class Bishop(Piece):
 
@@ -18,8 +17,7 @@ class Bishop(Piece):
         for square in range(64):
 
             permutations = self.bPermutations[square]
-            magic = magicmoves.bishopMagic[square]
-            shift = magicmoves.bishopShift[square]
+            magic, shift = self.getMagicShift('b', square)
 
             for blocker in permutations:
                 index = (blocker * magic) >> shift
@@ -38,10 +36,9 @@ class Bishop(Piece):
         Bitboard (uint64) of attackable squares.
         """
 
-        magic = magicmoves.bishopMagic[square]
-        shift = magicmoves.bishopShift[square]
+        magic, shift = self.getMagicShift('b', square)
         index = (blockers * magic) >> shift
-
+        
         return self.attacks[square][index]
      
     def getMoves(self, square, pieces, allies):
