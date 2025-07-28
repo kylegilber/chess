@@ -190,4 +190,20 @@ class Piece:
             return magicmoves.rookMagic[square], magicmoves.rookShift[square]
         else: 
             raise ValueError(f"Unrecognized piece: {piece}.")
+        
+    def getSlidingMoves(self, square, blockers, allies):
+        """
+        Get pseudo-legal moves for sliding pieces.
+
+        {args}
+        square (int): index of square
+        blockers (uint64): bitboard of blockers
+        allies (uint64): bitboard of ally pieces
+
+        {returns}
+        uint64: bitboard of legal moves.
+        """
+
+        attacks = self.getAttacks(square, blockers)
+        return attacks & ~allies
 
