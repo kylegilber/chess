@@ -207,3 +207,18 @@ class Piece:
         attacks = self.getAttacks(square, blockers)
         return attacks & ~allies
 
+    def getMoves(self, square, allies):
+        """
+        Get pseudo-legal moves for non-sliding pieces.
+
+        {args}
+        square (int): index of square
+        blockers (uint64): bitboard of blockers
+        allies (uint64): bitboard of ally pieces
+
+        {returns}
+        uint64: bitboard of legal moves.
+        """
+
+        attacks = self.attacks[square]
+        return attacks & ~allies
