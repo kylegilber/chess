@@ -39,21 +39,5 @@ class Bishop(Piece):
         magic, shift = self.getMagicShift('b', square)
         index = (blockers * magic) >> shift
         return self.attacks[square][index]
-     
-    def getMoves(self, square, blockers, allies):
-        """
-        Get pseudo-legal Bishop moves.
-
-        {args}
-        square (int): index of square
-        blockers (uint64): bitboard of blockers
-        allies (uint64): bitboard of ally pieces
-
-        {returns}
-        uint64: bitboard of legal moves.
-        """
-
-        attacks = self.getAttacks(square, blockers)
-        return attacks & ~allies
 
 
